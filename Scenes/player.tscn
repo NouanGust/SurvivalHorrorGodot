@@ -1,0 +1,47 @@
+[gd_scene load_steps=10 format=3 uid="uid://cd02euysm8rbg"]
+
+[ext_resource type="Script" uid="uid://diyu47502pgev" path="res://Scripts/player.gd" id="1_cvnsp"]
+[ext_resource type="PackedScene" uid="uid://wu2trw3ea4e1" path="res://Assets/AnimationLibrary_Godot_Standard.glb" id="2_6t5aa"]
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_vgqql"]
+radius = 0.20457
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_cvnsp"]
+animation = &"Idle"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_6t5aa"]
+animation = &"Walk"
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_vgqql"]
+switch_mode = 2
+advance_mode = 2
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_fkybt"]
+xfade_time = 0.2
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_x3wgy"]
+xfade_time = 0.2
+
+[sub_resource type="AnimationNodeStateMachine" id="AnimationNodeStateMachine_3smsa"]
+states/Idle/node = SubResource("AnimationNodeAnimation_cvnsp")
+states/Idle/position = Vector2(433.76, 210)
+states/Start/position = Vector2(195, 114)
+states/Walk/node = SubResource("AnimationNodeAnimation_6t5aa")
+states/Walk/position = Vector2(559.76, 108)
+transitions = ["Start", "Idle", SubResource("AnimationNodeStateMachineTransition_vgqql"), "Idle", "Walk", SubResource("AnimationNodeStateMachineTransition_fkybt"), "Walk", "Idle", SubResource("AnimationNodeStateMachineTransition_x3wgy")]
+graph_offset = Vector2(32.7599, 0)
+
+[node name="Player" type="CharacterBody3D"]
+script = ExtResource("1_cvnsp")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 0.901196, 0, 0, 0, 1, 0, 0.873724, 0)
+shape = SubResource("CapsuleShape3D_vgqql")
+
+[node name="AnimationLibrary_Godot_Standard" parent="." instance=ExtResource("2_6t5aa")]
+
+[node name="PlayerAnimTree" type="AnimationTree" parent="AnimationLibrary_Godot_Standard"]
+tree_root = SubResource("AnimationNodeStateMachine_3smsa")
+anim_player = NodePath("../AnimationPlayer")
+
+[editable path="AnimationLibrary_Godot_Standard"]

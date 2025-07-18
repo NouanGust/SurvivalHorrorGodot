@@ -1,0 +1,15 @@
+[gd_scene load_steps=2 format=3 uid="uid://csrb8wn2nxk7y"]
+
+[ext_resource type="PackedScene" uid="uid://cd02euysm8rbg" path="res://Scenes/player.tscn" id="1_a02cp"]
+
+[node name="World" type="Node3D"]
+
+[node name="Player" parent="." instance=ExtResource("1_a02cp")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.505714, 0)
+
+[node name="CSGBox3D" type="CSGBox3D" parent="."]
+use_collision = true
+size = Vector3(20, 1, 20)
+
+[node name="Camera3D" type="Camera3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 0.973018, 0.230729, 0, -0.230729, 0.973018, 0.682115, 3.57079, 12.7209)
