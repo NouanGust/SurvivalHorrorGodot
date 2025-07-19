@@ -1,6 +1,7 @@
-[gd_scene load_steps=3 format=3 uid="uid://csrb8wn2nxk7y"]
+[gd_scene load_steps=4 format=3 uid="uid://csrb8wn2nxk7y"]
 
 [ext_resource type="PackedScene" uid="uid://cd02euysm8rbg" path="res://Scenes/player.tscn" id="1_a02cp"]
+[ext_resource type="PackedScene" uid="uid://c601o4igexja" path="res://Scenes/door.tscn" id="2_go701"]
 
 [sub_resource type="Environment" id="Environment_a02cp"]
 ambient_light_color = Color(0, 0.0745098, 0, 1)
@@ -12,15 +13,87 @@ ambient_light_energy = 0.03
 environment = SubResource("Environment_a02cp")
 
 [node name="Player" parent="." instance=ExtResource("1_a02cp")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.505714, 0)
-
-[node name="CSGBox3D" type="CSGBox3D" parent="."]
-use_collision = true
-size = Vector3(20, 1, 20)
+transform = Transform3D(0.610415, 0, 0.517102, 0, 0.8, 0, -0.517102, 0, 0.610415, -6.23264, 0.505714, 12.9133)
 
 [node name="OmniLight3D" type="OmniLight3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3.61347, 3.97669)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 5.14485, 3.97669)
 light_color = Color(0.800263, 0.867217, 1, 1)
 light_energy = 1.2
 shadow_enabled = true
 omni_range = 3.5
+
+[node name="OmniLight3D2" type="OmniLight3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 10.3131, 18.2762)
+light_color = Color(0.943457, 0.864426, 0.580569, 1)
+light_energy = 1.2
+shadow_enabled = true
+omni_range = 20.0
+
+[node name="walls" type="Node3D" parent="."]
+
+[node name="ground" type="CSGBox3D" parent="walls"]
+use_collision = true
+size = Vector3(20, 1, 20)
+
+[node name="ground2" type="CSGBox3D" parent="walls"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 19.9416)
+use_collision = true
+size = Vector3(20, 1, 20)
+
+[node name="CSGBox3D" type="CSGBox3D" parent="walls"]
+transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 1.48387, 2.53372, -1.46191)
+use_collision = true
+size = Vector3(16, 4, 1)
+
+[node name="CSGBox3D4" type="CSGBox3D" parent="walls"]
+transform = Transform3D(1.12573, 0, 0, 0, 0.996984, 0, 0, 0, 0.996984, 3.48908, 2.53372, 7.0393)
+use_collision = true
+size = Vector3(5, 4, 1)
+
+[node name="CSGBox3D10" type="CSGBox3D" parent="walls"]
+transform = Transform3D(0.846546, 0, -0.532315, 0, 1, 0, 0.532315, 0, 0.846546, 7.7177, 2.53372, 7.49173)
+use_collision = true
+size = Vector3(5, 4, 1)
+
+[node name="CSGBox3D11" type="CSGBox3D" parent="walls"]
+transform = Transform3D(0.908011, 0, 0.418945, 0, 1, 0, -0.418945, 0, 0.908011, -7.73669, 2.53372, 7.49173)
+use_collision = true
+size = Vector3(5, 4, 1)
+
+[node name="CSGBox3D5" type="CSGBox3D" parent="walls"]
+transform = Transform3D(1.17117, 0, 0, 0, 1, 0, 0, 0, 1, -3.26647, 2.53372, 7.0393)
+use_collision = true
+size = Vector3(5, 4, 1)
+
+[node name="CSGBox3D6" type="CSGBox3D" parent="walls"]
+transform = Transform3D(0.373016, 0, 0, 0, 0.361728, 0, 0, 0, 1, 0.128098, 3.55423, 7.0393)
+use_collision = true
+size = Vector3(4.99011, 4.97931, 1)
+
+[node name="CSGBox3D2" type="CSGBox3D" parent="walls"]
+transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, -1.25092, 2.53372, -1.46191)
+use_collision = true
+size = Vector3(16, 4, 1)
+
+[node name="CSGBox3D3" type="CSGBox3D" parent="walls"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0512289, 2.53372, -9.94355)
+use_collision = true
+size = Vector3(20, 4, 1)
+
+[node name="CSGBox3D7" type="CSGBox3D" parent="walls"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0512289, 2.53372, 29.3435)
+use_collision = true
+size = Vector3(20, 4, 1)
+
+[node name="CSGBox3D8" type="CSGBox3D" parent="walls"]
+transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, -9.54443, 2.53372, 18.8586)
+use_collision = true
+size = Vector3(20, 4, 1)
+
+[node name="CSGBox3D9" type="CSGBox3D" parent="walls"]
+transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 9.47798, 2.53372, 18.8586)
+use_collision = true
+size = Vector3(20, 4, 1)
+
+[node name="Door" parent="." instance=ExtResource("2_go701")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.17216, 1.57926, 6.87363)
