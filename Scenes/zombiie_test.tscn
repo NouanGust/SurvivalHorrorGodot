@@ -1,0 +1,9 @@
+[gd_scene load_steps=2 format=3 uid="uid://dswiwdhiln53k"]
+
+[ext_resource type="PackedScene" uid="uid://c2hepnf5f3ghw" path="res://Assets/Blender/Pack ZOMBIE BASE Modular FN.blend" id="1_h8rd0"]
+
+[node name="Node3D" type="Node3D"]
+
+[node name="Pack ZOMBIE BASE Modular FN" parent="." instance=ExtResource("1_h8rd0")]
+
+[editable path="Pack ZOMBIE BASE Modular FN"]

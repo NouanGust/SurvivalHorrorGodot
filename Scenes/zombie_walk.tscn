@@ -1,0 +1,16 @@
+[gd_scene load_steps=3 format=3 uid="uid://c565y8ukpwgb6"]
+
+[ext_resource type="PackedScene" uid="uid://4p1lf04stqjt" path="res://Assets/Blender/ZombieNoMaterial@Zombie Walk.fbx" id="1_45kql"]
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_3a30i"]
+height = 1.61634
+
+[node name="zombie_walk" type="RigidBody3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.00554228, 2.38419e-07, -0.00146961)
+
+[node name="ZombieNoMaterial_Zombie Walk" parent="." instance=ExtResource("1_45kql")]
+transform = Transform3D(0.2, 0, 0, 0, 0.2, 0, 0, 0, 0.2, 0, 0, 0)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.108835, 0.0187951, 0)
+shape = SubResource("CapsuleShape3D_3a30i")
