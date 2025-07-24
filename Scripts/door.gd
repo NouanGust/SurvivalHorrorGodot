@@ -6,67 +6,71 @@ extends Node3D
 @onready var hinge := $hinge # Referência ao seu nó hinge
 
 var is_open = false
+var close_timer_active = false # Nova variável para controlar o timer de fechamento
 
+func _on_area_3d_body_entered(body: CharacterBody3D):
+	if body.is_in_group("player"):
+		# Se o jogador entrar enquanto o timer de fechamento está ativo,
+		# pare o timer para que a porta permaneça aberta.
+		if close_timer_active:
+			# Se você usasse um Timer explícito, faria: $CloseTimer.stop()
+			# Com await, simplesmente não chamamos close_door() novamente.
+			return # Não faça nada, a porta já está abrindo ou aberta
 
-func _on_area_3d_body_entered(body: CharacterBody3D): # Use CharacterBody3D, como no seu print
-	if body.is_in_group("player"): # Assuma que seu jogador está no grupo "player"
 		_determine_and_open_door(body)
 
 func _on_area_3d_body_exited(body: CharacterBody3D):
 	if body.is_in_group("player"):
-		close_door()
+		# Inicia o processo de fechamento após um atraso.
+		start_close_timer()
 
 func _determine_and_open_door(player: CharacterBody3D):
 	if is_open:
 		return
 
 	# Calcule a posição do jogador em relação ao centro da porta
-	# A posição da porta será a GlobalPosition do nó pai 'Door'.
-	# Você pode querer usar a posição do hinge para um cálculo mais preciso,
-	# mas a GlobalPosition do 'Door' geralmente funciona como um bom centro de referência.
-	var door_center_position = global_transform.origin # A posição do nó "Door"
+	var door_center_position = global_transform.origin
 
 	# Obtenha o vetor do centro da porta para o jogador
 	var to_player_vector = (player.global_transform.origin - door_center_position).normalized()
 
 	# Obtenha o vetor 'direito' da porta no espaço global.
-	# Como sua porta gira em torno de Y e está alinhada com Z (parece que Z é a profundidade),
-	# o vetor "direito" é o eixo X local da porta.
-	var door_right_global_vector = global_transform.basis.x # O vetor 'x' da própria porta
+	var door_right_global_vector = global_transform.basis.x
 
 	# Use o produto escalar para determinar se o jogador está à esquerda ou à direita
-	# da "frente" da porta.
-	# Isso nos dirá qual lado da porta o jogador está.
 	var dot_product_with_door_right = door_right_global_vector.dot(to_player_vector)
 
-	# Lógica para determinar qual animação tocar:
-	# Pense na porta como tendo um lado "esquerdo" e um "direito" em relação à sua face.
-	# Se o jogador está mais para o lado direito da porta (olhando para a porta de frente),
-	# a porta deve abrir para a sua "esquerda" (longe do jogador).
-	# Se o jogador está mais para o lado esquerdo da porta,
-	# a porta deve abrir para a sua "direita".
-
-	# A direção de abertura dependerá de como você criou suas animações "door_open_left" e "door_open_right".
-	# Vamos assumir:
-	# - "door_open_left" faz a porta girar no sentido anti-horário (ex: Y de 0 para -90).
-	# - "door_open_right" faz a porta girar no sentido horário (ex: Y de 0 para 90).
-
 	if dot_product_with_door_right > 0:
-		# O jogador está mais para o lado DIREITO da porta (em relação ao vetor 'right' da porta).
-		# A porta deve se abrir para a "esquerda" do jogador, ou seja,
-		# a borda livre da porta deve ir para o lado esquerdo do jogador.
-		# Isso geralmente significa girar no sentido anti-horário (ex: para -90 graus Y).
 		anim_player.play("door_open_left")
-		print("Abrindo porta para a esquerda (anti-horário)") # Para debug
+		print("Abrindo porta para a esquerda (anti-horário)")
 	else:
-		# O jogador está mais para o lado ESQUERDO da porta.
-		# A porta deve se abrir para a "direita" do jogador, ou seja,
-		# a borda livre da porta deve ir para o lado direito do jogador.
-		# Isso geralmente significa girar no sentido horário (ex: para +90 graus Y).
 		anim_player.play("door_open_right")
-		print("Abrindo porta para a direita (horário)") # Para debug
+		print("Abrindo porta para a direita (horário)")
 
 	is_open = true
+	close_timer_active = false # Resetar ao abrir, caso o timer estivesse ativo por algum motivo
+
+func start_close_timer():
+	if not is_open or close_timer_active: # Só inicia se estiver aberta e o timer não estiver ativo
+		return
+
+	close_timer_active = true
+	# Use await para esperar por um tempo antes de chamar close_door()
+	# Isso é o equivalente a usar um Timer com 'one_shot'
+	await get_tree().create_timer(1.0).timeout # Espera 1 segundo
+
+	# Verifica novamente se a porta ainda deve fechar (o jogador pode ter reentrado na Area3D)
+	if close_timer_active and not is_open: # Garante que só fecha se não tiver sido reaberta
+		# A linha acima é redundante, pois close_timer_active já verifica se ninguém "interrompeu"
+		# Mas para ser super seguro:
+		# O ideal aqui é verificar se o jogador AINDA ESTÁ na área de colisão.
+		# Se a porta foi reaberta (is_open = true), não queremos fechar.
+		# Se o player reentrou, close_timer_active será definido como false em _determine_and_open_door.
+
+		# O método _on_area_3d_body_entered já cuida de parar o timer.
+		# Então, se chegamos aqui, significa que o jogador realmente saiu e ficou fora por 1s
+		close_door()
+	close_timer_active = false # O timer terminou sua execução
 
 func close_door():
 	if is_open:

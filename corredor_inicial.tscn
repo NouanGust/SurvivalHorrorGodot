@@ -1,0 +1,87 @@
+[gd_scene load_steps=6 format=3 uid="uid://d04liyro128ch"]
+
+[ext_resource type="PackedScene" uid="uid://c601o4igexja" path="res://Scenes/door.tscn" id="1_2lybk"]
+[ext_resource type="PackedScene" uid="uid://cd02euysm8rbg" path="res://Scenes/player.tscn" id="2_hlx23"]
+[ext_resource type="Script" uid="uid://3xm5e4lijdmk" path="res://Scripts/camera_trigger.gd" id="3_iftqr"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_2lybk"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_hlx23"]
+
+[node name="Corredor_inicial" type="Node3D"]
+
+[node name="Door" parent="." instance=ExtResource("1_2lybk")]
+transform = Transform3D(-0.00675439, 0, -0.999977, 0, 1, 0, 0.999977, 0, -0.00675439, -2.37255, 1.58149, -0.0318905)
+
+[node name="CSGBox3D" type="CSGBox3D" parent="."]
+transform = Transform3D(0.994418, 0, 0, 0, 0.994418, 0, 0, 0, 0.994418, 0, 0, 0)
+use_collision = true
+size = Vector3(5, 1, 5)
+
+[node name="CSGBox3D8" type="CSGBox3D" parent="."]
+transform = Transform3D(0.994418, 0, 0, 0, 0.994418, 0, 0, 0, 0.994418, -4.96544, 0, 0)
+use_collision = true
+size = Vector3(5, 1, 5)
+
+[node name="CSGBox3D2" type="CSGBox3D" parent="."]
+transform = Transform3D(0.994418, 0, 0, 0, -4.34674e-08, -0.994418, 0, 0.994418, -4.34674e-08, 0, 2.01185, -2.3078)
+use_collision = true
+size = Vector3(5, 0.4, 3)
+
+[node name="CSGBox3D3" type="CSGBox3D" parent="."]
+transform = Transform3D(0.994418, 0, 0, 0, -4.34674e-08, -0.994418, 0, 0.994418, -4.34674e-08, 0, 2.01185, 2.21685)
+use_collision = true
+size = Vector3(5, 0.4, 3)
+
+[node name="CSGBox3D4" type="CSGBox3D" parent="."]
+transform = Transform3D(-3.67962e-08, -0.994418, 0, -3.67962e-08, 1.90002e-15, -0.994418, 0.841799, -4.34674e-08, -4.34674e-08, 2.28925, 2.01185, -0.0218383)
+use_collision = true
+size = Vector3(5, 0.4, 3)
+
+[node name="CSGBox3D5" type="CSGBox3D" parent="."]
+transform = Transform3D(-1.40969e-08, -0.99292, 0, -1.40969e-08, 1.89716e-15, -0.99292, 0.3225, -4.34019e-08, -4.34019e-08, -2.29521, 2.01185, -1.34951)
+use_collision = true
+size = Vector3(5, 0.4, 3)
+
+[node name="CSGBox3D6" type="CSGBox3D" parent="."]
+transform = Transform3D(-1.39838e-08, -0.994418, 0, -1.39838e-08, 1.90002e-15, -0.994418, 0.319912, -4.34674e-08, -4.34674e-08, -2.29521, 2.01185, 1.27476)
+use_collision = true
+size = Vector3(5, 0.4, 3)
+
+[node name="CSGBox3D7" type="CSGBox3D" parent="."]
+transform = Transform3D(-9.99229e-09, -0.994418, 0, -9.99229e-09, 1.90002e-15, -0.284249, 0.228597, -4.34674e-08, -1.24249e-08, -2.29521, 3.05391, -0.0335405)
+use_collision = true
+size = Vector3(5, 0.4, 3)
+
+[node name="Player" parent="." instance=ExtResource("2_hlx23")]
+transform = Transform3D(0.10399, 0, -0.994578, 0, 1, 0, 0.994578, 0, 0.10399, 0, 0.575497, 0)
+
+[node name="Camera3D" type="Camera3D" parent="."]
+transform = Transform3D(0.64812, -0.225193, 0.727481, 0, 0.955278, 0.295708, -0.761538, -0.191654, 0.619135, 1.78145, 2.74008, 1.66137)
+current = true
+
+[node name="Area3D" type="Area3D" parent="Camera3D"]
+script = ExtResource("3_iftqr")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Camera3D/Area3D"]
+transform = Transform3D(0.994073, -0.0860937, 0.06638, 0.108122, 0.846487, -0.521314, -0.0113076, 0.525401, 0.85078, -0.377157, -1.37944, -3.66616)
+shape = SubResource("BoxShape3D_2lybk")
+
+[node name="OmniLight3D" type="OmniLight3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.85977, 6.33636, -0.00116909)
+omni_range = 4096.0
+
+[node name="Camera3D2" type="Camera3D" parent="."]
+transform = Transform3D(0.527579, 0.251206, -0.811515, -1.69007e-09, 0.955278, 0.295708, 0.849506, -0.156009, 0.503985, -8.31463, 2.74008, 2.51759)
+
+[node name="Area3D" type="Area3D" parent="Camera3D2"]
+script = ExtResource("3_iftqr")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Camera3D2/Area3D"]
+transform = Transform3D(1, 7.45058e-08, -2.98023e-08, 1.04308e-07, 1, 0, 2.98023e-08, -5.21541e-08, 1, 0.922185, -0.391007, -6.77668)
+shape = SubResource("BoxShape3D_hlx23")
+
+[connection signal="body_entered" from="Camera3D/Area3D" to="Camera3D/Area3D" method="_on_body_entered"]
+[connection signal="body_exited" from="Camera3D/Area3D" to="Camera3D/Area3D" method="_on_body_exited"]
+[connection signal="body_entered" from="Camera3D2/Area3D" to="Camera3D2/Area3D" method="_on_body_entered"]
+[connection signal="body_exited" from="Camera3D2/Area3D" to="Camera3D2/Area3D" method="_on_body_exited"]

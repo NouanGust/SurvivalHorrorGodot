@@ -1,9 +1,9 @@
-[gd_scene load_steps=7 format=3 uid="uid://csrb8wn2nxk7y"]
+[gd_scene load_steps=8 format=3 uid="uid://csrb8wn2nxk7y"]
 
 [ext_resource type="PackedScene" uid="uid://cd02euysm8rbg" path="res://Scenes/player.tscn" id="1_a02cp"]
 [ext_resource type="PackedScene" uid="uid://c601o4igexja" path="res://Scenes/door.tscn" id="2_go701"]
-[ext_resource type="Script" uid="uid://3xm5e4lijdmk" path="res://Scenes/camera_trigger.gd" id="3_5a7ea"]
-[ext_resource type="PackedScene" uid="uid://cxh3a6q442rbu" path="res://Scenes/zombie_idle.tscn" id="4_8j60k"]
+[ext_resource type="Script" uid="uid://3xm5e4lijdmk" path="res://Scripts/camera_trigger.gd" id="3_5a7ea"]
+[ext_resource type="PackedScene" uid="uid://dqacgmorgders" path="res://Scenes/zombie_normal.tscn" id="4_8j60k"]
 
 [sub_resource type="Environment" id="Environment_a02cp"]
 ambient_light_color = Color(0, 0.0745098, 0, 1)
@@ -11,6 +11,11 @@ ambient_light_energy = 0.03
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_8j60k"]
 size = Vector3(1.77319, 0.228516, 1)
+
+[sub_resource type="NavigationMesh" id="NavigationMesh_8j60k"]
+vertices = PackedVector3Array(-9.5, 1, -9.5, -9.5, 1, 29.5, 9.5, 1, 29.5, 9.5, 1, -9.5)
+polygons = [PackedInt32Array(3, 2, 0), PackedInt32Array(0, 2, 1)]
+agent_height = 1.0
 
 [node name="World" type="Node3D"]
 
@@ -42,15 +47,6 @@ shadow_enabled = true
 omni_range = 20.0
 
 [node name="walls" type="Node3D" parent="."]
-
-[node name="ground" type="CSGBox3D" parent="walls"]
-use_collision = true
-size = Vector3(20, 1, 20)
-
-[node name="ground2" type="CSGBox3D" parent="walls"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 19.9416)
-use_collision = true
-size = Vector3(20, 1, 20)
 
 [node name="CSGBox3D" type="CSGBox3D" parent="walls"]
 transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 1.48387, 2.53372, -1.46191)
@@ -148,7 +144,6 @@ shape = SubResource("BoxShape3D_8j60k")
 
 [node name="TestCam" type="Camera3D" parent="Cameras"]
 transform = Transform3D(0.665074, 0, 0.746778, 0, 1, 0, -0.746778, 0, 0.665074, -2.58146, 1.35964, 11.8154)
-current = true
 
 [node name="OmniLight3D" type="OmniLight3D" parent="Cameras/TestCam"]
 transform = Transform3D(1, 0, -2.98023e-08, 0, 1, 0, 2.98023e-08, 0, 1, 0.556898, 3.14681, -1.37743)
@@ -156,8 +151,21 @@ light_color = Color(0.494118, 0, 0.027451, 1)
 light_energy = 3.5
 omni_range = 21.644
 
-[node name="zombie_idle" parent="." instance=ExtResource("4_8j60k")]
-transform = Transform3D(0.3037, 0, 0.952768, 0, 1, 0, -0.952768, 0, 0.3037, -4.16725, 0.65649, 10.5786)
+[node name="NavigationRegion3D" type="NavigationRegion3D" parent="."]
+navigation_mesh = SubResource("NavigationMesh_8j60k")
+
+[node name="ground" type="CSGBox3D" parent="NavigationRegion3D"]
+use_collision = true
+size = Vector3(20, 1, 20)
+
+[node name="ground2" type="CSGBox3D" parent="NavigationRegion3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 19.9416)
+use_collision = true
+size = Vector3(20, 1, 20)
+
+[node name="Zombie_normal" parent="." node_paths=PackedStringArray("target") instance=ExtResource("4_8j60k")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5.35349, 0.504591, 9.37516)
+target = NodePath("../Player")
 
 [connection signal="body_entered" from="Cameras/Camera3D/Area3D" to="Cameras/Camera3D/Area3D" method="_on_body_entered"]
 [connection signal="body_exited" from="Cameras/Camera3D/Area3D" to="Cameras/Camera3D/Area3D" method="_on_body_exited"]
