@@ -1,7 +1,12 @@
-[gd_scene load_steps=10 format=3 uid="uid://cd02euysm8rbg"]
+[gd_scene load_steps=15 format=3 uid="uid://cd02euysm8rbg"]
 
 [ext_resource type="Script" uid="uid://diyu47502pgev" path="res://Scripts/player.gd" id="1_cvnsp"]
 [ext_resource type="PackedScene" uid="uid://wu2trw3ea4e1" path="res://Assets/AnimationLibrary_Godot_Standard.glb" id="2_6t5aa"]
+[ext_resource type="AudioStream" uid="uid://cc1a346n6l53h" path="res://Sounds/footsteps_1.mp3" id="2_fkybt"]
+[ext_resource type="AudioStream" uid="uid://oi2jcr3t261w" path="res://Sounds/footsteps_2.mp3" id="3_x3wgy"]
+[ext_resource type="AudioStream" uid="uid://cyi214coxb4uu" path="res://Sounds/footsteps_3.mp3" id="4_3smsa"]
+[ext_resource type="AudioStream" uid="uid://d3cl56ajwlvkk" path="res://Sounds/footsteps_4.mp3" id="5_3smsa"]
+[ext_resource type="AudioStream" uid="uid://owtyrb6134sa" path="res://Sounds/footsteps_5.mp3" id="6_8erm5"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_vgqql"]
 radius = 0.20457
@@ -34,6 +39,7 @@ transitions = ["Idle", "Walk", SubResource("AnimationNodeStateMachineTransition_
 [node name="Player" type="CharacterBody3D" groups=["player"]]
 transform = Transform3D(-1, 0, 8.74228e-08, 0, 1, 0, -8.74228e-08, 0, -1, 0, 0, 0)
 script = ExtResource("1_cvnsp")
+walk_footsteps = Array[AudioStream]([ExtResource("2_fkybt"), ExtResource("3_x3wgy"), ExtResource("4_3smsa"), ExtResource("5_3smsa"), ExtResource("6_8erm5")])
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 0.901196, 0, 0, 0, 1, 0, 0.873724, 0)
@@ -42,15 +48,15 @@ shape = SubResource("CapsuleShape3D_vgqql")
 [node name="AnimationLibrary_Godot_Standard" parent="." instance=ExtResource("2_6t5aa")]
 
 [node name="Skeleton3D" parent="AnimationLibrary_Godot_Standard/Rig" index="0"]
-bones/1/position = Vector3(-0.00232893, 0.0866733, 0.876837)
-bones/1/rotation = Quaternion(0.756694, -0.0883843, -0.0751503, 0.643393)
-bones/3/rotation = Quaternion(-0.0306441, 0.000114597, 0.000125019, 0.99953)
-bones/4/rotation = Quaternion(0.1394, 0.000312763, 0.000399394, 0.990236)
-bones/5/rotation = Quaternion(0.0178073, -0.000237158, -0.000242, 0.999841)
-bones/6/rotation = Quaternion(0.000431411, 0.0960039, -0.00298694, 0.995376)
-bones/7/rotation = Quaternion(-0.599818, -0.373249, -0.394405, 0.587664)
-bones/8/rotation = Quaternion(-0.285743, 0.673435, -0.49643, 0.467326)
-bones/9/rotation = Quaternion(0.282827, 0.0420222, -0.00475229, 0.958238)
+bones/1/position = Vector3(-0.000512613, 0.0869954, 0.871562)
+bones/1/rotation = Quaternion(0.758121, -0.088551, -0.0749539, 0.641711)
+bones/3/rotation = Quaternion(-0.0337111, 0.000112957, 0.000126293, 0.999432)
+bones/4/rotation = Quaternion(0.127613, 0.000306264, 0.000404155, 0.991824)
+bones/5/rotation = Quaternion(0.0254025, -0.000233291, -0.000245444, 0.999677)
+bones/6/rotation = Quaternion(-0.026712, 0.0960461, 0.00115152, 0.995018)
+bones/7/rotation = Quaternion(-0.608806, -0.367124, -0.400111, 0.578348)
+bones/8/rotation = Quaternion(-0.259642, 0.670305, -0.515944, 0.465917)
+bones/9/rotation = Quaternion(0.249093, 0.0136222, 0.00406447, 0.968375)
 bones/10/rotation = Quaternion(0.106009, 0.00637576, -0.0256743, 0.994013)
 bones/11/rotation = Quaternion(0.44519, 0.549369, -0.445194, 0.549365)
 bones/12/rotation = Quaternion(0.623342, 6.13486e-08, 2.15438e-07, 0.781949)
@@ -67,9 +73,9 @@ bones/22/rotation = Quaternion(0.623341, -0.000665145, -0.0008345, 0.781949)
 bones/23/rotation = Quaternion(0.290838, 0.949649, 0.114583, 0.021217)
 bones/24/rotation = Quaternion(0.21939, 0.0238026, -0.00530472, 0.975332)
 bones/25/rotation = Quaternion(0.687388, -0.000309068, -0.000444658, 0.72629)
-bones/26/rotation = Quaternion(-0.635934, 0.310322, 0.32975, 0.624942)
-bones/27/rotation = Quaternion(-0.293833, -0.680432, 0.47026, 0.479093)
-bones/28/rotation = Quaternion(0.367311, -0.152972, 0.0613825, 0.915377)
+bones/26/rotation = Quaternion(-0.645059, 0.305437, 0.33428, 0.61552)
+bones/27/rotation = Quaternion(-0.290379, -0.678422, 0.478579, 0.4758)
+bones/28/rotation = Quaternion(0.367733, -0.146525, 0.0587957, 0.916431)
 bones/29/rotation = Quaternion(0.116709, 0.00291669, 0.0447786, 0.992152)
 bones/30/rotation = Quaternion(0.445191, -0.549369, 0.445194, 0.549365)
 bones/31/rotation = Quaternion(0.623341, 2.17518e-07, 6.33371e-08, 0.78195)
@@ -86,13 +92,13 @@ bones/41/rotation = Quaternion(0.623342, 0.000664924, 0.000834326, 0.781949)
 bones/42/rotation = Quaternion(-0.290838, 0.949649, 0.114584, -0.021217)
 bones/43/rotation = Quaternion(0.21939, -0.0238026, 0.00530485, 0.975332)
 bones/44/rotation = Quaternion(0.687388, 0.000309234, 0.000444539, 0.72629)
-bones/45/rotation = Quaternion(0.96414, 0.114191, -0.0140794, 0.239158)
-bones/46/rotation = Quaternion(0.179158, -0.111964, 0.0205172, 0.977213)
-bones/47/rotation = Quaternion(-0.492955, 0.0201503, 0.0966411, 0.864436)
+bones/45/rotation = Quaternion(0.958438, 0.117653, -0.0145062, 0.259509)
+bones/46/rotation = Quaternion(0.213783, -0.109745, 0.0241673, 0.970396)
+bones/47/rotation = Quaternion(-0.506937, 0.0217977, 0.0957255, 0.856374)
 bones/48/rotation = Quaternion(-0.000137176, 0.964307, -0.264787, -0.000499421)
-bones/49/rotation = Quaternion(0.993406, -0.112839, 0.0139127, 0.0147585)
-bones/50/rotation = Quaternion(0.122396, 0.357678, -0.0473597, 0.924577)
-bones/51/rotation = Quaternion(-0.584101, -0.0514794, -0.161025, 0.793881)
+bones/49/rotation = Quaternion(0.990918, -0.129321, 0.015945, 0.0332302)
+bones/50/rotation = Quaternion(0.162393, 0.352044, -0.0621715, 0.919689)
+bones/51/rotation = Quaternion(-0.59995, -0.054093, -0.161167, 0.781766)
 bones/52/rotation = Quaternion(-0.000137047, 0.964307, -0.264787, -0.000499421)
 
 [node name="AnimationTree" type="AnimationTree" parent="."]
@@ -100,5 +106,9 @@ root_node = NodePath("../AnimationLibrary_Godot_Standard")
 tree_root = SubResource("AnimationNodeStateMachine_3smsa")
 advance_expression_base_node = NodePath("..")
 anim_player = NodePath("../AnimationLibrary_Godot_Standard/AnimationPlayer")
+
+[node name="Footsteps" type="AudioStreamPlayer3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.0437006, 0)
+max_distance = 5.0
 
 [editable path="AnimationLibrary_Godot_Standard"]

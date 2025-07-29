@@ -3,6 +3,11 @@ extends CharacterBody3D
 
 @export var speed := 3.5
 @export var rotation_speed := 2.5
+@export var walk_footsteps: Array[AudioStream]
+var rng:RandomNumberGenerator
+
+func _ready() -> void:
+	rng = RandomNumberGenerator.new()
 
 
 func _physics_process(delta: float) -> void:
@@ -12,6 +17,10 @@ func _physics_process(delta: float) -> void:
 	
 	# Movimentação
 	if Input.is_action_pressed("move_forward"):
+		if !$Footsteps.playing:
+			var num = rng.randi_range(0, walk_footsteps.size() -1)
+			$Footsteps.stream = walk_footsteps[num]
+			$Footsteps.play()
 		input_direction.y = 1
 	elif Input.is_action_pressed("move_backward"):
 		input_direction.y = -1
