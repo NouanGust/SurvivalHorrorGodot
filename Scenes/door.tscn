@@ -1,9 +1,10 @@
-[gd_scene load_steps=15 format=3 uid="uid://c601o4igexja"]
+[gd_scene load_steps=16 format=3 uid="uid://c601o4igexja"]
 
 [ext_resource type="Script" uid="uid://wkr3gp2vhfum" path="res://Scripts/door.gd" id="1_ab4ky"]
 [ext_resource type="Material" uid="uid://btoamxjmuqwow" path="res://Materials/Door_wood.tres" id="1_fahql"]
 [ext_resource type="Material" uid="uid://wx6ll16v40xg" path="res://Materials/Metal.tres" id="2_ab4ky"]
 [ext_resource type="Material" uid="uid://g11ew8hbtxqu" path="res://Materials/Door_handel.tres" id="3_a43ba"]
+[ext_resource type="Script" uid="uid://db55gwndf5l15" path="res://Scripts/area_3d.gd" id="5_a43ba"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_fahql"]
 
@@ -91,13 +92,13 @@ _data = {
 &"door_open_right": SubResource("Animation_sl2j7")
 }
 
-[node name="Door" type="Node3D"]
+[node name="Door" type="Node3D" groups=["interactable"]]
 script = ExtResource("1_ab4ky")
 
 [node name="hinge" type="Node3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.49288, 0, 0)
 
-[node name="StaticBody3D" type="StaticBody3D" parent="hinge"]
+[node name="StaticBody3D" type="StaticBody3D" parent="hinge" groups=["interactable"]]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.49288, 0, 0)
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="hinge/StaticBody3D"]
@@ -124,10 +125,11 @@ transform = Transform3D(0.210814, 0, 0, 0, -1.84705e-09, -0.181879, 0, 0.0422557
 mesh = SubResource("CylinderMesh_ovubi")
 skeleton = NodePath("../../..")
 
-[node name="Area3D" type="Area3D" parent="."]
+[node name="Area_porta" type="Area3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1.42319, 0, 0, 0, 2.07806, 0, 0, 0)
+script = ExtResource("5_a43ba")
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Area3D"]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Area_porta"]
 transform = Transform3D(0.998755, 0, 0, 0, 0.115939, 0, 0, 0, 0.790834, 0, -0.700684, 0)
 shape = SubResource("BoxShape3D_burcv")
 
@@ -136,5 +138,5 @@ libraries = {
 &"": SubResource("AnimationLibrary_gkskb")
 }
 
-[connection signal="body_entered" from="Area3D" to="." method="_on_area_3d_body_entered"]
-[connection signal="body_exited" from="Area3D" to="." method="_on_area_3d_body_exited"]
+[connection signal="body_entered" from="Area_porta" to="." method="_on_area_3d_body_entered"]
+[connection signal="body_exited" from="Area_porta" to="." method="_on_area_3d_body_exited"]

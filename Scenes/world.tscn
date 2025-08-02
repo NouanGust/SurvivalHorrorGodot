@@ -1,9 +1,10 @@
-[gd_scene load_steps=8 format=3 uid="uid://csrb8wn2nxk7y"]
+[gd_scene load_steps=9 format=3 uid="uid://csrb8wn2nxk7y"]
 
 [ext_resource type="PackedScene" uid="uid://cd02euysm8rbg" path="res://Scenes/player.tscn" id="1_a02cp"]
 [ext_resource type="PackedScene" uid="uid://c601o4igexja" path="res://Scenes/door.tscn" id="2_go701"]
 [ext_resource type="Script" uid="uid://3xm5e4lijdmk" path="res://Scripts/camera_trigger.gd" id="3_5a7ea"]
 [ext_resource type="PackedScene" uid="uid://dqacgmorgders" path="res://Scenes/zombie_normal.tscn" id="4_8j60k"]
+[ext_resource type="PackedScene" uid="uid://njvmvepmvskt" path="res://Scenes/debug_panel.tscn" id="5_fo5ed"]
 
 [sub_resource type="Environment" id="Environment_a02cp"]
 ambient_light_color = Color(0, 0.0745098, 0, 1)
@@ -166,6 +167,8 @@ size = Vector3(20, 1, 20)
 [node name="Zombie_normal" parent="." node_paths=PackedStringArray("target") instance=ExtResource("4_8j60k")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5.35349, 0.504591, 9.37516)
 target = NodePath("../Player")
+
+[node name="DebugPanel" parent="." instance=ExtResource("5_fo5ed")]
 
 [connection signal="body_entered" from="Cameras/Camera3D/Area3D" to="Cameras/Camera3D/Area3D" method="_on_body_entered"]
 [connection signal="body_exited" from="Cameras/Camera3D/Area3D" to="Cameras/Camera3D/Area3D" method="_on_body_exited"]

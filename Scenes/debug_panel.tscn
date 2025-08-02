@@ -1,0 +1,22 @@
+[gd_scene load_steps=2 format=3 uid="uid://njvmvepmvskt"]
+
+[ext_resource type="Script" uid="uid://br4pl260b1os0" path="res://Scripts/debug_panel.gd" id="1_br2yp"]
+
+[node name="DebugPanel" type="CanvasLayer"]
+script = ExtResource("1_br2yp")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+size_flags_horizontal = 4
+size_flags_vertical = 4
+
+[node name="FPS_label" type="Label" parent="VBoxContainer"]
+layout_mode = 2
+text = "FPS: "
+
+[node name="Interactive_label" type="Label" parent="VBoxContainer"]
+layout_mode = 2
+text = "Objeto atual: "
+
+[node name="current_scene_label" type="Label" parent="VBoxContainer"]
+layout_mode = 2
+text = "Cena atual: "

@@ -6,8 +6,16 @@ extends CharacterBody3D
 @export var walk_footsteps: Array[AudioStream]
 var rng:RandomNumberGenerator
 
+@onready var interaction_area = $Interaction_area
+var current_interactable = null
+
+@onready var debug_panel = get_node("/root/" + get_tree().current_scene.name + "/DebugPanel") 
+
 func _ready() -> void:
 	rng = RandomNumberGenerator.new()
+	interaction_area.connect("area_entered", _on_area_entered)
+	interaction_area.connect("area_exited", _on_area_exited)
+	print(debug_panel)
 
 
 func _physics_process(delta: float) -> void:
@@ -36,3 +44,20 @@ func _physics_process(delta: float) -> void:
 	velocity = direction * speed
 	
 	move_and_slide()
+
+func _on_area_entered(area: Area3D) -> void:
+	if area.has_method("interact"):
+		current_interactable = area
+		print("Pode interagir com: %s" %[str(area.name)])
+	debug_panel.set_interactable(area.name)
+
+func _on_area_exited(area: Area3D) -> void:
+	if current_interactable == area:
+		current_interactable = null
+		print("Saiu da area de interação com: %s" % [area.name])
+		debug_panel.clear_interactable()
+
+
+func _input(event: InputEvent) -> void:
+	if event.is_action_pressed("interact") and current_interactable:
+		current_interactable.interact()
