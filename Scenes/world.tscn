@@ -14,8 +14,9 @@ ambient_light_energy = 0.03
 size = Vector3(1.77319, 0.228516, 1)
 
 [sub_resource type="NavigationMesh" id="NavigationMesh_8j60k"]
-vertices = PackedVector3Array(-9.5, 1, -9.5, -9.5, 1, 29.5, 9.5, 1, 29.5, 9.5, 1, -9.5)
+vertices = PackedVector3Array(-9.5, 0.7, -9.5, -9.5, 0.7, 29.5, 9.5, 0.7, 29.5, 9.5, 0.7, -9.5)
 polygons = [PackedInt32Array(3, 2, 0), PackedInt32Array(0, 2, 1)]
+cell_height = 0.1
 agent_height = 1.0
 
 [node name="World" type="Node3D"]
