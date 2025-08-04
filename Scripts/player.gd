@@ -9,14 +9,15 @@ var rng:RandomNumberGenerator
 @onready var interaction_area = $Interaction_area
 var current_interactable = null
 
-@onready var debug_panel = get_node("/root/" + get_tree().current_scene.name + "/DebugPanel") 
+@onready var debug_panel =  $DebugPanel
 
 func _ready() -> void:
+	
+	debug_panel.visible = false
+	
 	rng = RandomNumberGenerator.new()
 	interaction_area.connect("area_entered", _on_area_entered)
 	interaction_area.connect("area_exited", _on_area_exited)
-	print(debug_panel)
-
 
 func _physics_process(delta: float) -> void:
 	
@@ -59,5 +60,13 @@ func _on_area_exited(area: Area3D) -> void:
 
 
 func _input(event: InputEvent) -> void:
+	
+	# Ativar painel de debug
+	if event.is_action_pressed("debug"):
+		if !debug_panel.visible:
+			debug_panel.visible = true
+		else:
+			debug_panel.visible = false
+	
 	if event.is_action_pressed("interact") and current_interactable:
 		current_interactable.interact()

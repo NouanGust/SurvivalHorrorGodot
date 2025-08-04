@@ -16,8 +16,8 @@ func _process(_delta: float) -> void:
 	
 	# Pegar e mostrar nome da cena
 	current_scene_label.text = "Cena atual: %s" % get_tree().current_scene.name
-func set_interactable(name: String) -> void:
-	current_interactable_name = name
+func set_interactable(obj_name: String) -> void:
+	current_interactable_name = obj_name
 
 func clear_interactable() -> void:
 	current_interactable_name = ""
